@@ -36,7 +36,7 @@ contract Loans is Ownable {
   constructor() Ownable(msg.sender) {}
 
   uint256 public loanId;
-  uint256 public tax_porcent = 300; 
+  uint256 public tax_porcent = 30; 
 
   function setTax(uint256 _tax) external onlyOwner {
     require(_tax > 0, "Tax must be greater than 0");
