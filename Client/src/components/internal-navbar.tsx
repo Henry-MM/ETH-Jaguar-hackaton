@@ -11,7 +11,7 @@ import {
 } from "@heroui/navbar";
 import { Button } from "@heroui/button";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { FaHandPaper, FaHistory, FaUserCog } from "react-icons/fa";
+import { FaHandPaper, FaHistory, FaMoneyBillWave, FaUserCog } from "react-icons/fa";
 import type { TabKey } from "@/types";
 
 type Props = {
@@ -24,6 +24,7 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
 
   const items: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     { key: "request", label: "Solicitar", icon: <FaHandPaper size={18} /> },
+    { key: "payment", label: "Pagar", icon: <FaMoneyBillWave size={18} /> },
     { key: "history", label: "Historial", icon: <FaHistory size={18} /> },
     { key: "account", label: "Mi cuenta", icon: <FaUserCog size={18} /> },
   ];

@@ -1,14 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
-import { HiCheckCircle, HiCalendar, HiReceiptRefund, HiTag, HiShieldCheck, HiCheck } from "react-icons/hi";
+import { HiCalendar, HiReceiptRefund, HiTag, HiShieldCheck, HiCheck } from "react-icons/hi";
 import { Offer } from "@/types";
 
 export type RequestDraft = {
   amount: number;
   months: number;
   maxMonthly: number;
-  bank: string | null;
 };
 
 const fmtHNL = new Intl.NumberFormat("es-HN", { style: "currency", currency: "HNL" });
@@ -62,7 +61,6 @@ function OfferRecommendations({
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
             <Chip icon={<HiTag />} label={`${current.taza}% Tasa de interés`} />
             <Chip icon={<HiReceiptRefund />} label={`Comisión {${fmtHNL.format(current.serviceFee)}}`.replace("{", "").replace("}", "")} />
-            {current.verified && <Chip icon={<HiCheckCircle />} label="Prestamista verificado" />}
           </div>
 
           <div className="my-6 h-px w-full bg-foreground/10" />
@@ -120,7 +118,6 @@ function ConfirmScreen({
             <DetailRow icon={<HiCalendar />} label="Último pago" value={formatDate(offer.lastPaymentDate)} />
             <DetailRow label="Tasa de interés" value={`${offer.taza}%`} />
             <DetailRow label="Comisión de servicio" value={fmtHNL.format(offer.serviceFee)} />
-            {!!draft?.bank && <DetailRow label="Banco de depósito" value={draft.bank!} />}
           </div>
 
           <div className="rounded-2xl bg-foreground/[0.05] p-3 text-sm text-foreground/80 ring-1 ring-foreground/10">
@@ -145,7 +142,6 @@ function ConfirmScreen({
 
 function DepositSuccess({
   offer,
-  draft,
   onFinish,
 }: {
   offer: Offer;
@@ -162,7 +158,6 @@ function DepositSuccess({
           <h2 className="text-2xl font-semibold">¡Depósito confirmado!</h2>
           <p className="text-foreground/70">
             Se han depositado <strong>{fmtHNL.format(offer.amount)}</strong>
-            {draft?.bank ? <> en <strong>{draft.bank}</strong></> : null}.
           </p>
 
           <div className="mx-auto mt-4 w-full max-w-sm text-left space-y-2 text-sm">
