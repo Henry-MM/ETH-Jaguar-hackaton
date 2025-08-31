@@ -67,4 +67,8 @@ contract LempiraCoin is ERC20, Ownable {
         require(bal > 0, "no token balance");
         token.transfer(to, bal);
     }
+
+    function getLempirasCoinAmount() public view returns (uint256) {
+      return balanceOf(msg.sender);
+  }
 }
