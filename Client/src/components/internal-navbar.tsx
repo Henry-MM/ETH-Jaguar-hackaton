@@ -13,7 +13,7 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React, { useState } from "react";
 import { FaHandPaper, FaHistory, FaMoneyBillWave, FaUserCog } from "react-icons/fa";
-import logo from "../../public/money.png";
+import logo from "../../public/logo.png";
 
 type Props = {
   active: TabKey;
@@ -47,7 +47,7 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
           aria-label="Prestamigo inicio"
         >
           <span className="text-xl font-extrabold tracking-tight from-neutral-950 to-neutral-500 bg-clip-text text-transparent bg-gradient-to-r">
-            Prest<span className="text-success">amigo</span>
+            Prest<span className="text-[#22c2ab]">amigo</span>
           </span>
         </Link>
 
@@ -60,7 +60,7 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
                 aria-current={active === it.key ? "page" : undefined}
                 className={`group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition
                   ${active === it.key
-                    ? "text-success bg-success/10"
+                    ? "text-[#22c2ab] bg-[#22c2ab]/10"
                     : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"}`}
               >
                 {it.icon}
@@ -95,7 +95,7 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
               }}
               className={`w-full flex items-center gap-2 rounded-xl px-3 py-3 text-base
                 ${active === it.key
-                  ? "text-success bg-success/10"
+                  ? "text-[#22c2ab] bg-[#22c2ab]/10"
                   : "text-foreground/80 hover:bg-foreground/5"}`}
               aria-current={active === it.key ? "page" : undefined}
             >

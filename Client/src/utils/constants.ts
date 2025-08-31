@@ -1,4 +1,13 @@
-export const fmtHNL = new Intl.NumberFormat("es-HN", { style: "currency", currency: "HNL" });
+export const formatCustomCurrency = (
+  amount: number, 
+  currencyCode: string = "LPC", 
+  symbol: string = "₱"
+): string => {
+  return `${symbol}${amount.toLocaleString("es-HN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })} ${currencyCode}`;
+};
 
 export const banks = [
   { key: "Bac Credomatic", label: "Bac Credomatic" },

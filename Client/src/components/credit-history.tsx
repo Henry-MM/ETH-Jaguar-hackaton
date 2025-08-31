@@ -1,6 +1,6 @@
 import  { useMemo, useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { fmtHNL } from "../utils/constants";
+import { formatCustomCurrency } from "../utils/constants";
 import type { Transaction } from "../types";
 import TransactionsTable from "./transactions-table";
 import TransactionDetailsModal from "./transaction-details-modal";
@@ -32,7 +32,7 @@ export default function CreditHistory() {
         <CardBody>
           <div className="mb-4 rounded-2xl border border-foreground/10 p-4">
             <h3 className="text-base font-semibold">Resumen</h3>
-            <p className="text-foreground/80">Total: <strong>{fmtHNL.format(totalAmount)}</strong></p>
+            <p className="text-foreground/80">Total: <strong>{formatCustomCurrency(totalAmount, "", "LPC ")}</strong></p>
           </div>
 
           <TransactionsTable
