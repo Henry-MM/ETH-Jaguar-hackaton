@@ -27,7 +27,7 @@ export default function IndexPage() {
         <header className="text-center">
           <h1 className="inline-block max-w-xl leading-tight">
             <span className={title()}>Prest</span>
-            <span className={title({ color: "green" })}>amigo</span>
+            <span className={`${title()} text-[#22c2ab]`}>amigo</span>
           </h1>
           <p className={`${subtitle()} mt-2`}>Una experiencia simple y transparente.</p>
         </header>
@@ -38,7 +38,7 @@ export default function IndexPage() {
           <Link
             href="/request-loan"
             aria-label="Comenzar solicitud de préstamo"
-            className={`${buttonStyles({ color: "secondary", radius: "full", variant: "shadow" })} bg-gradient-to-t from-[#17c964] to-[#6fee8d]`}
+            className={`${buttonStyles({ radius: "full", variant: "shadow" })} bg-gradient-to-t from-[#22c2ab] to-[#22c2ab] text-white font-bold`}
           >
             Comenzar
           </Link>

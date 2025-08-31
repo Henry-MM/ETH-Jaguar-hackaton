@@ -13,7 +13,7 @@ import {
 } from "@heroui/navbar";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
-import logo from "../../public/money.png";
+import logo from "../../public/logo.png";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
@@ -57,7 +57,7 @@ export const Navbar = () => {
             href="/"
           >
                <span className="text-xl font-extrabold tracking-tight">
-            Prest<span className="text-success">amigo</span>
+            Prest<span className="text-[#22c2ab]">amigo</span>
           </span>
            
           </Link>

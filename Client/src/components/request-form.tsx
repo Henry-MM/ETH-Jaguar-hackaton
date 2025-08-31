@@ -59,11 +59,11 @@ export default function RequestForm({ onContinue }: Props) {
               description={`Sugerido: ${fmtHNL.format(Math.round(amount * 0.05))} (≈ 5% de tu monto)`}
             />
 
-            <Switch className="mt-4" isSelected={accept} onValueChange={setAccept}>
+            <Switch className="mt-4 text-[#22c2ab]" isSelected={accept} onValueChange={setAccept}>
               Acepto los <Link href="/terms" className="underline">términos</Link> y autorizo revisión de historial.
             </Switch>
 
-            <Button color="success" variant="shadow" radius="full" isDisabled={!valid} className="w-full" onPress={() => onContinue({ amount, months, maxMonthly})}>
+            <Button className="bg-[#22c2ab] text-white font-bold w-full" variant="shadow" radius="full" isDisabled={!valid}  onPress={() => onContinue({ amount, months, maxMonthly})}>
               Continuar
             </Button>
           </div>

@@ -162,7 +162,7 @@ function SelectPaymentStep({
 
           <div className="flex justify-end">
             <Button
-              color="success"
+              className="bg-[#22c2ab] text-white font-bold"
               isDisabled={!isValidAmount}
               onPress={onContinue}
             >
@@ -217,7 +217,7 @@ function ConfirmPaymentStep({
 
           <div className="flex justify-between">
             <Button variant="flat" onPress={onBack}>Volver</Button>
-            <Button color="success" onPress={onConfirm}>Confirmar pago</Button>
+            <Button  className="bg-[#22c2ab] text-white font-bold" onPress={onConfirm}>Confirmar pago</Button>
           </div>
         </CardBody>
       </Card>
@@ -240,7 +240,7 @@ function SuccessStep({
       <Card className="w-full max-w-md md:max-w-xl rounded-3xl shadow-2xl">
         <CardBody className="py-10 text-center space-y-4">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
-            <HiCheck className="text-emerald-600" size={32} />
+            <HiCheck className="text-[#22c2ab]" size={32} />
           </div>
           <h2 className="text-2xl font-semibold">¡Pago realizado!</h2>
           <p className="text-foreground/70">
@@ -255,7 +255,7 @@ function SuccessStep({
 
           <div className="mt-8 flex justify-center gap-3">
             <Button as={"a"} href="/request?tab=history" variant="flat">Ver historial</Button>
-            <Button color="success" onPress={onFinish}>Finalizar</Button>
+            <Button  className="bg-[#22c2ab] text-white font-bold" onPress={onFinish}>Finalizar</Button>
           </div>
         </CardBody>
       </Card>
@@ -273,7 +273,7 @@ function Stepper({ step }: { step: Step }) {
       <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-foreground/70">
         {labels.map((l, i) => (
           <div key={l} className="flex items-center gap-2">
-            <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-xs ${i + 1 <= step ? "bg-emerald-500" : "bg-foreground/30"}`}>
+            <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-white text-xs ${i + 1 <= step ? "bg-[#22c2ab]" : "bg-foreground/30"}`}>
               {i + 1}
             </span>
             <span className={`${i + 1 === step ? "text-foreground" : ""}`}>{l}</span>
@@ -281,7 +281,7 @@ function Stepper({ step }: { step: Step }) {
         ))}
       </div>
       <div className="mt-3 h-1.5 w-full rounded-full bg-foreground/10 overflow-hidden">
-        <div className="h-full bg-emerald-500 transition-all" style={{ width: `${pct}%` }} />
+        <div className="h-full bg-[#22c2ab] transition-all" style={{ width: `${pct}%` }} />
       </div>
     </div>
   );
@@ -318,7 +318,7 @@ function LoanInfoBar({ loan }: { loan: LoanSummary }) {
         </div>
 
         <div className="mt-3 h-2 w-full rounded-full bg-foreground/10 overflow-hidden">
-          <div className="h-full bg-emerald-500 transition-all" style={{ width: `${pct}%` }} />
+          <div className="h-full bg-[#22c2ab] transition-all" style={{ width: `${pct}%` }} />
         </div>
       </div>
     </div>
