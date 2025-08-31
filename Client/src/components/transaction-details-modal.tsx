@@ -1,6 +1,6 @@
 import { Button } from "@heroui/button";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/modal";
-import { fmtHNL } from "../utils/constants";
+import { formatCustomCurrency } from "../utils/constants";
 import type { Transaction } from "../types";
 
 type Props = {
@@ -21,7 +21,7 @@ export default function TransactionDetailsModal({ open, transaction, onClose }: 
                 <div className="flex items-center justify-between"><span className="font-medium">ID</span><span>{transaction.id}</span></div>
                 <div className="flex items-center justify-between"><span className="font-medium">Fecha</span><span>{new Date(transaction.date).toLocaleString("es-HN")}</span></div>
                 <div className="flex items-center justify-between"><span className="font-medium">Descripción</span><span>{transaction.description}</span></div>
-                <div className="flex items-center justify-between"><span className="font-medium">Monto</span><span className={transaction.amount < 0 ? "text-danger" : "text-success"}>{fmtHNL.format(transaction.amount)}</span></div>
+                <div className="flex items-center justify-between"><span className="font-medium">Monto</span><span className={transaction.amount < 0 ? "text-danger" : "text-success"}>{formatCustomCurrency(transaction.amount, "", "LPC ")}</span></div>
                 <div className="flex items-center justify-between"><span className="font-medium">Método</span><span>{transaction.method}</span></div>
                 <div className="flex items-center justify-between"><span className="font-medium">Referencia</span><span>{transaction.reference}</span></div>
               </div>

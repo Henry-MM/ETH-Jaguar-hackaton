@@ -1,6 +1,6 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { Button } from "@heroui/button";
-import { fmtHNL } from "../utils/constants";
+import { formatCustomCurrency } from "../utils/constants";
 import type { Transaction } from "../types";
 
 type Props = {
@@ -22,7 +22,7 @@ export default function TransactionsTable({ transactions, onSelect }: Props) {
           <TableRow key={t.id} className="hover:bg-foreground/5">
             <TableCell>{new Date(t.date).toLocaleDateString("es-HN")}</TableCell>
             <TableCell>{t.description}</TableCell>
-            <TableCell className={`text-right ${t.amount < 0 ? "text-danger" : "text-success"}`}>{fmtHNL.format(t.amount)}</TableCell>
+            <TableCell className={`text-right ${t.amount < 0 ? "text-danger" : "text-success"}`}>{formatCustomCurrency(t.amount, "", "LPC ")}</TableCell>
             <TableCell>
               <Button size="sm" variant="flat" onPress={() => onSelect(t)}>Ver detalles</Button>
             </TableCell>
