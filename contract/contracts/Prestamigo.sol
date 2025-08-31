@@ -55,5 +55,13 @@ contract Prestamigo is Ownable {
         loans.payLoan(msg.sender, lempiraCoinAmount);
     } 
     
+    function setNewLoanContract(address _loans) external onlyOwner {
+        loans = Loans(_loans);
+    }
+
+    function setNewLempiraCoinContract(address _lem) external onlyOwner {
+        lem = LempiraCoin(payable(_lem));
+    }
+
     receive() external payable {}
 }
