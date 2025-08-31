@@ -13,6 +13,7 @@ import { Button } from "@heroui/button";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { FaHandPaper, FaHistory, FaMoneyBillWave, FaUserCog } from "react-icons/fa";
 import type { TabKey } from "@/types";
+import logo from "../../public/money.png";
 
 type Props = {
   active: TabKey;
@@ -38,15 +39,17 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
     >
       {/* Brand */}
       <NavbarContent justify="start">
-        <NavbarBrand
+        <img src={logo} alt="Prestamigo" className="w-10 h-10" />
+        <Link
+          href="/"
           onClick={() => onChange("request")}
           className="cursor-pointer select-none"
           aria-label="Prestamigo inicio"
         >
-          <span className="text-xl font-extrabold tracking-tight">
+          <span className="text-xl font-extrabold tracking-tight from-neutral-950 to-neutral-500 bg-clip-text text-transparent bg-gradient-to-r">
             Prest<span className="text-success">amigo</span>
           </span>
-        </NavbarBrand>
+        </Link>
 
         {/* Desktop nav */}
         <div className="ml-4 hidden md:flex items-center gap-1">
