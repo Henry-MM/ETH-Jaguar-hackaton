@@ -1,18 +1,16 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Switch } from "@heroui/switch";
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { Select, SelectItem } from "@heroui/select";
-import { fmtHNL, banks } from "../utils/constants";
+import { fmtHNL } from "../utils/constants";
 
 type Props = {
   onContinue: (form: {
     amount: number;
     months: number;
     maxMonthly: number;
-    bank: string | null;
   }) => void;
 };
 
@@ -20,16 +18,15 @@ export default function RequestForm({ onContinue }: Props) {
   const [amount, setAmount] = useState(10000);
   const [months, setMonths] = useState(12);
   const [maxMonthly, setMaxMonthly] = useState(Math.round(10000 * 0.05));
-  const [bank, setBank] = useState<string | null>(null);
   const [accept, setAccept] = useState(false);
 
   const MIN = 1000; // HNL
   const MAX = 100000;
 
   const valid = useMemo(() => {
-    const base = amount >= MIN && amount <= MAX && months >= 3 && months <= 36 && !!bank && accept;
+    const base = amount >= MIN && amount <= MAX && months >= 3 && months <= 36 && accept;
     return base;
-  }, [amount, months, bank, accept]);
+  }, [amount, months, accept]);
 
   return (
     <section id="request-form" className="w-full max-w-2xl p-4 md:p-6">
@@ -62,28 +59,11 @@ export default function RequestForm({ onContinue }: Props) {
               description={`Sugerido: ${fmtHNL.format(Math.round(amount * 0.05))} (≈ 5% de tu monto)`}
             />
 
-            <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-              <Select
-                selectedKeys={bank ? [bank] : []}
-                onSelectionChange={(keys) => {
-                  const k = Array.from(keys)[0] as string | undefined;
-                  setBank(k ?? null);
-                }}
-                className="max-w-xs"
-                label="Banco donde lo deseas recibir"
-                placeholder="Selecciona un banco"
-              >
-                {banks.map((b) => (
-                  <SelectItem key={b.key}>{b.label}</SelectItem>
-                ))}
-              </Select>
-            </div>
-
             <Switch className="mt-4" isSelected={accept} onValueChange={setAccept}>
               Acepto los <Link href="/terms" className="underline">términos</Link> y autorizo revisión de historial.
             </Switch>
 
-            <Button color="success" variant="shadow" radius="full" isDisabled={!valid} className="w-full" onPress={() => onContinue({ amount, months, maxMonthly, bank })}>
+            <Button color="success" variant="shadow" radius="full" isDisabled={!valid} className="w-full" onPress={() => onContinue({ amount, months, maxMonthly})}>
               Continuar
             </Button>
           </div>

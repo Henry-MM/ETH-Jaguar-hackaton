@@ -4,16 +4,19 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
+export type Step = "form" | "offers";
+export type PaymentStep = "form" | "review";
+export type TabKey = "request" | "history" | "account" | "payment";
+
 export type Transaction = {
   id: string;
-  date: string; // ISO string
+  date: string;
   description: string;
-  amount: number; // negative = egreso, positive = ingreso
+  amount: number; 
   method: string;
   reference: string;
 };
 
-export type TabKey = "request" | "history" | "account";
 
 export type Offer = {
   id: string;

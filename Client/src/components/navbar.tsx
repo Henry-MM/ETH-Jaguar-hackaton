@@ -13,6 +13,7 @@ import {
 } from "@heroui/navbar";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
+import logo from "../../public/money.png";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
@@ -49,12 +50,16 @@ export const Navbar = () => {
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit mx-8">
+        <img src={logo} alt="Prestamigo" className="w-10 h-10" />
           <Link
             className="flex justify-start items-center gap-1"
             color="foreground"
             href="/"
           >
-            <p className="font-bold text-inherit">Prestamigo</p>
+               <span className="text-xl font-extrabold tracking-tight">
+            Prest<span className="text-success">amigo</span>
+          </span>
+           
           </Link>
         </NavbarBrand>
         <div className="hidden lg:flex gap-4 justify-start ml-2">

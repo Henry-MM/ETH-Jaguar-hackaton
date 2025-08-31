@@ -36,7 +36,7 @@ export default function IndexPage() {
 
         <nav className="flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/request"
+            href="/request-loan"
             aria-label="Comenzar solicitud de préstamo"
             className={`${buttonStyles({ color: "secondary", radius: "full", variant: "shadow" })} bg-gradient-to-t from-[#17c964] to-[#6fee8d]`}
           >
