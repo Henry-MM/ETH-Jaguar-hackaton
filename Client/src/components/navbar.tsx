@@ -1,28 +1,24 @@
 
+import { Input } from "@heroui/input";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem, 
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@heroui/navbar";
-import { link as linkStyles } from "@heroui/theme";
-import clsx from "clsx";
 import logo from "../../public/money.png";
 
-import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  SearchIcon,
+  SearchIcon
 } from "@/components/icons";
+import { ThemeSwitch } from "@/components/theme-switch";
+import { siteConfig } from "@/config/site";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export const Navbar = () => {
   const searchInput = (
@@ -56,28 +52,12 @@ export const Navbar = () => {
             color="foreground"
             href="/"
           >
-               <span className="text-xl font-extrabold tracking-tight">
+            <span className="text-xl font-extrabold tracking-tight">
             Prest<span className="text-success">amigo</span>
           </span>
            
           </Link>
         </NavbarBrand>
-        <div className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <Link
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            </NavbarItem>
-          ))}
-        </div>
       </NavbarContent>
 
       <NavbarContent
@@ -85,26 +65,12 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal href={siteConfig.links.twitter} title="Twitter">
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal href={siteConfig.links.discord} title="Discord">
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          <Link isExternal href={siteConfig.links.github} title="GitHub">
-            <GithubIcon className="text-default-500" />
-          </Link>
           <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
+          <ConnectButton label="Conectar Wallet" />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

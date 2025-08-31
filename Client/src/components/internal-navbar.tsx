@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import { ThemeSwitch } from "@/components/theme-switch";
+import type { TabKey } from "@/types";
+import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import {
   Navbar as HUINavbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarMenuToggle
 } from "@heroui/navbar";
-import { Button } from "@heroui/button";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import React, { useState } from "react";
 import { FaHandPaper, FaHistory, FaMoneyBillWave, FaUserCog } from "react-icons/fa";
-import type { TabKey } from "@/types";
 import logo from "../../public/money.png";
 
 type Props = {
@@ -38,7 +38,7 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
       className="backdrop-blur bg-background/70 supports-[backdrop-filter]:bg-background/60"
     >
       {/* Brand */}
-      <NavbarContent justify="start">
+      <NavbarContent>
         <img src={logo} alt="Prestamigo" className="w-10 h-10" />
         <Link
           href="/"
@@ -71,23 +71,14 @@ export const InternalNavbar = ({ active, onChange }: Props) => {
         </div>
       </NavbarContent>
 
+
       {/* Right actions (desktop) */}
-      <NavbarContent justify="end" className="hidden sm:flex">
-        <NavbarItem>
-          <Link color="foreground" href="#">Francisco Madrid</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="danger" href="#" variant="flat">
-            Cerrar sesión
-          </Button>
-        </NavbarItem>
+      <NavbarContent className="hidden sm:flex">
+        <ConnectButton />
       </NavbarContent>
 
       {/* Mobile toggle */}
-      <NavbarContent justify="end" className="md:hidden">
+      <NavbarContent className="md:hidden">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
         />

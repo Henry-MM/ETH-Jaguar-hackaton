@@ -3,6 +3,8 @@ import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { HiCalendar, HiReceiptRefund, HiTag, HiShieldCheck, HiCheck } from "react-icons/hi";
 import { Offer } from "@/types";
+import { useWriteContract } from 'wagmi'
+import { abi as PrestamigoAbi } from "../smartContracts/Prestamigo.json";
 
 export type RequestDraft = {
   amount: number;
@@ -208,8 +210,20 @@ export default function OffersWizard({
   draft?: RequestDraft | null;
   onFinish?: (payload: { offer: Offer; draft?: RequestDraft | null }) => void;
 }) {
+  const { data: hash, writeContract, isPending } = useWriteContract();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+
+  const handleConfirmLoan = () => {
+    writeContract({
+      address: import.meta.env.VITE_PRESTAMIGO_CONTRACT_ADDRESS as `0x${string}`,
+      abi: PrestamigoAbi,
+      functionName: "createLoan",
+      args: [500, 100, false],
+    });
+  }
+
+  console.log(hash, isPending);
 
   return (
     <div className="w-full">
@@ -227,7 +241,7 @@ export default function OffersWizard({
           offer={selectedOffer}
           draft={draft}
           onBack={() => setStep(1)}
-          onConfirm={() => setStep(3)}
+          onConfirm={handleConfirmLoan}
         />
       )}
 

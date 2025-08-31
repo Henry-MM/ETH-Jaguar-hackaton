@@ -1,10 +1,14 @@
 
-import { Link } from "@heroui/link";
-import { button as buttonStyles } from "@heroui/theme";
-import { title, subtitle } from "@/components/primitives";
-import DefaultLayout from "@/layouts/default";
 import animationData from "@/animations/Bank Loan.json";
+import { subtitle, title } from "@/components/primitives";
+import DefaultLayout from "@/layouts/default";
+import { Button } from "@heroui/button";
+import { button as buttonStyles } from "@heroui/theme";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Lottie from "lottie-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useConnect, useConnections } from "wagmi";
 
 export function BankLoanAnimation() {
   return (
@@ -14,7 +18,31 @@ export function BankLoanAnimation() {
   );
 }
 
+// request-loan
+
 export default function IndexPage() {
+
+  const { openConnectModal } = useConnectModal();
+  const connections = useConnections();
+  const navigate = useNavigate();
+
+  const onClickStart = () => {
+    if (connections.length) {
+      return navigate("/request-loan");
+    }
+
+    if (openConnectModal) {
+      openConnectModal();
+    }
+  };
+
+  // useEffect(() => {
+  //   if (connections.length) {
+  //     navigate("/request-loan");
+  //   }
+  // }, [connections])
+
+
   return (
     <DefaultLayout>
       <section className="relative flex flex-col items-center justify-center gap-6 py-12 md:py-16">
@@ -35,21 +63,13 @@ export default function IndexPage() {
         <BankLoanAnimation />
 
         <nav className="flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/request-loan"
+          <Button
             aria-label="Comenzar solicitud de préstamo"
             className={`${buttonStyles({ color: "secondary", radius: "full", variant: "shadow" })} bg-gradient-to-t from-[#17c964] to-[#6fee8d]`}
+            onClick={onClickStart}
           >
             Comenzar
-          </Link>
-
-          <Link
-            href="/how-it-works"
-            aria-label="Cómo funciona Prestamigo"
-            className={buttonStyles({ color: "default", radius: "full", variant: "flat" })}
-          >
-            Cómo funciona
-          </Link>
+          </Button>
         </nav>
 
         {/* Social proof / key points */}

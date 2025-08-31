@@ -14,12 +14,17 @@ export default function RequestPage() {
   const [step, setStep] = useState<Step>("form");
   const [draft, setDraft] = useState<any>(null);
 
+
+
   return (
     <Layout active={active} onChange={setActive}>
       <main className="flex min-h-[calc(100dvh-120px)] flex-col items-center justify-start pb-28">
         {active === "request" && (
           step === "form" ? (
-            <RequestForm onContinue={(form) => { setDraft(form); setStep("offers"); }} />
+            <RequestForm onContinue={(form) => { 
+              setDraft(form); 
+              setStep("offers"); 
+            }} />
           ) : (
             <OffersWizard
               draft={draft}
