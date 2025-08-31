@@ -70,6 +70,7 @@ contract Loans is Ownable {
     uint256 totalTaxAmount = taxAmount * 1e18;
     uint256 totalToPay = unitAmount + totalTaxAmount;
 
+    loanId++;
     currentLoan[borrower] = Loan({  
       loanId: loanId,
       timestamp: block.timestamp, 
@@ -83,7 +84,6 @@ contract Loans is Ownable {
 
     loansId[borrower].push(loanId);
     userLoans[borrower].push(loanId);
-    loanId++;
     emit LoanCreated(loanId, borrower, lempiraCoinAmount, tax_porcent);
   }
 
@@ -94,6 +94,7 @@ contract Loans is Ownable {
     
     uint256 currentLoanId = currentLoan[borrower].loanId;
 
+    
     require(currentLoan[borrower].totalToPay >= unitAmount, "Not enough balance");
     if(currentLoan[borrower].totalPaid + unitAmount > currentLoan[borrower].totalToPay) {
       uint256 remainingAmount = currentLoan[borrower].totalToPay - currentLoan[borrower].totalPaid;
@@ -102,8 +103,10 @@ contract Loans is Ownable {
     
 
     uint256 totalPaid = currentLoan[borrower].totalPaid + unitAmount;
-    currentLoan[borrower].totalPaid = totalPaid;
-    payments[userLoans[borrower][userLoans[borrower].length - 1]].push(Payment({amount: lempiraCoinAmount, timestamp: block.timestamp}));
+    currentLoan[borrower].totalPaid = totalPaid;  
+    uint256 id = currentLoan[borrower].loanId;
+
+    payments[id].push(Payment({amount: lempiraCoinAmount, timestamp: block.timestamp}));
     if(totalPaid == currentLoan[borrower].totalToPay) {
       emit LoanFinalized(currentLoanId, borrower);
       currentLoan[borrower] = Loan({loanId: 0, timestamp: 0, tax: 0, maxPaymentPerMonth: 0, totalToPay: 0, totalPaid: 0, monthsToPay: 0, hasColateral: false});
