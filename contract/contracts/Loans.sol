@@ -88,21 +88,18 @@ contract Loans is Ownable {
   }
 
   function payLoan(address borrower, uint256 lempiraCoinAmount) external onlyOwner {
-    uint256 unitAmount = lempiraCoinAmount * 1e18;
     require(currentLoan[borrower].loanId > 0, "No loan");
-    require(unitAmount >= 1e18, "Amount must be at least 1 LEMP");
     
     uint256 currentLoanId = currentLoan[borrower].loanId;
-
     
-    require(currentLoan[borrower].totalToPay >= unitAmount, "Not enough balance");
-    if(currentLoan[borrower].totalPaid + unitAmount > currentLoan[borrower].totalToPay) {
+    require(currentLoan[borrower].totalToPay >= lempiraCoinAmount, "Not enough balance");
+    if(currentLoan[borrower].totalPaid + lempiraCoinAmount > currentLoan[borrower].totalToPay) {
       uint256 remainingAmount = currentLoan[borrower].totalToPay - currentLoan[borrower].totalPaid;
-      unitAmount = remainingAmount;
+      lempiraCoinAmount = remainingAmount;
     }
     
 
-    uint256 totalPaid = currentLoan[borrower].totalPaid + unitAmount;
+    uint256 totalPaid = currentLoan[borrower].totalPaid + lempiraCoinAmount;
     currentLoan[borrower].totalPaid = totalPaid;  
     uint256 id = currentLoan[borrower].loanId;
 
