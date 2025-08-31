@@ -15,6 +15,7 @@ contract Loans is Ownable {
     uint256 totalToPay;
     uint256 totalPaid;
     uint256 monthsToPay;
+    bool hasColateral;
   }
 
   uint8 public constant decimals = 18;
@@ -48,28 +49,36 @@ contract Loans is Ownable {
 
   
 
-  function createLoan(address borrower, uint256 lempiraCoinAmount, uint256 months, uint256 maxPaymentPerMonth) external onlyOwner {
+  function createLoan(address borrower, uint256 lempiraCoinAmount, uint256 maxPaymentPerMonth, bool hasColateral) external onlyOwner {
     uint256 unitAmount = lempiraCoinAmount * 1e18;
+    uint256 maxPayWithDecimals = maxPaymentPerMonth * 1e18;
     require(borrower != address(0), "zero address");
     require(lempiraCoinAmount > 0, "Amount must be greater than 0");
-    require(months > 0, "Months must be greater than 0");
     require(currentLoan[borrower].monthsToPay == 0, "Loan already exists");
-    require(maxPaymentPerMonth > 0, "Max payment must be greater than 0");
+    require(maxPayWithDecimals > 1e18, "Max payment must be greater than 1 LEMP");
     require(unitAmount >= 1e18, "Amount must be at least 1 LEMP");
+    
+    uint256 monthsToPay = unitAmount / maxPayWithDecimals;
+    uint256 remainder = unitAmount % maxPayWithDecimals;
+    monthsToPay = remainder > 0 ? monthsToPay + 1 : monthsToPay;
 
+    if(hasColateral) {
+      tax_porcent = 20;
+    }
 
     uint256 taxAmount = (lempiraCoinAmount * tax_porcent) / 100;
-    uint256 totalTaxAmount = taxAmount * months * 1e18;
+    uint256 totalTaxAmount = taxAmount * 1e18;
     uint256 totalToPay = unitAmount + totalTaxAmount;
 
     currentLoan[borrower] = Loan({  
       loanId: loanId,
       timestamp: block.timestamp, 
       tax: tax_porcent, 
-      maxPaymentPerMonth: maxPaymentPerMonth, 
+      maxPaymentPerMonth: maxPaymentPerMonth * 1e18, 
       totalToPay: totalToPay, 
       totalPaid: 0, 
-      monthsToPay: months
+      monthsToPay: monthsToPay,
+      hasColateral: hasColateral
     });
 
     loansId[borrower].push(loanId);
@@ -97,18 +106,18 @@ contract Loans is Ownable {
     payments[userLoans[borrower][userLoans[borrower].length - 1]].push(Payment({amount: lempiraCoinAmount, timestamp: block.timestamp}));
     if(totalPaid == currentLoan[borrower].totalToPay) {
       emit LoanFinalized(currentLoanId, borrower);
-      currentLoan[borrower] = Loan({loanId: 0, timestamp: 0, tax: 0, maxPaymentPerMonth: 0, totalToPay: 0, totalPaid: 0, monthsToPay: 0});
+      currentLoan[borrower] = Loan({loanId: 0, timestamp: 0, tax: 0, maxPaymentPerMonth: 0, totalToPay: 0, totalPaid: 0, monthsToPay: 0, hasColateral: false});
     }
 
     emit LoanPaid(payments[currentLoanId].length - 1, currentLoanId, borrower, lempiraCoinAmount);
   }
 
-  function getLoan(address borrower) external view returns (Loan memory) {
-    require(currentLoan[borrower].loanId > 0, "No loan");
-    return currentLoan[borrower];
+  function getLoan() external view returns (Loan memory) {
+    require(currentLoan[msg.sender].loanId > 0, "No loan");
+    return currentLoan[msg.sender];
   }
 
-  function getLoansId(address borrower) external view returns (uint256[] memory) {
-    return loansId[borrower];
+  function getLoansId() external view returns (uint256[] memory) {
+    return loansId[msg.sender];
   }
 }

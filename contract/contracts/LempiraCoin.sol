@@ -44,19 +44,6 @@ contract LempiraCoin is ERC20, Ownable {
         emit BoughtWithETH(msg.sender, msg.value, tokensToMint);
     }
 
-    // function redeemForETH(uint256 tokenAmount) external {
-    //     require(tokenAmount > 0, "tokenAmount = 0");
-
-    //     uint256 ethToReturn = (tokenAmount * 1 ether) / rateInTokenPerEth;
-    //     require(address(this).balance >= ethToReturn, "Contract ETH balance insufficient");
-
-    //     _transfer(msg.sender, owner(), tokenAmount);
-
-    //     (bool sent, ) = payable(msg.sender).call{value: ethToReturn}("");
-    //     require(sent, "ETH transfer failed");
-
-    //     emit RedeemedForETH(msg.sender, tokenAmount, ethToReturn);
-    // }
 
     function setRate(uint256 newRateInTokenPerEth) external onlyOwner {
         require(newRateInTokenPerEth > 0, "rate = 0");

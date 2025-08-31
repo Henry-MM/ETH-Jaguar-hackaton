@@ -36,25 +36,24 @@ contract Prestamigo is Ownable {
         return blacklist[_user];
     }
 
-    function createLoan(uint256 lempiraCoinAmount, uint256 months, uint256 maxPaymentPerMonth) external {
-        uint256 lempiraCoinAmountWithDecimals = lempiraCoinAmount * 1e18;
-        require(lempiraCoinAmountWithDecimals >= 1e18, "Amount must be at least 1 LEMP");
+    function createLoan(uint256 lempiraCoinAmount, uint256 maxPaymentPerMonth, bool hasColateral) external {
+        require(lempiraCoinAmount >= 1e18, "Amount must be at least 1 LEMP");
         require(!blacklist[msg.sender], "You are banned");
-        require(lem.balanceOf(owner()) >= lempiraCoinAmountWithDecimals, "in this moment contract doesn't have enough LEMP");
-        require(lempiraCoinAmountWithDecimals <= maxLoanAmount, "Amount too large");
-        
-        loans.createLoan(msg.sender, lempiraCoinAmount, months, maxPaymentPerMonth);
-        lem.transfer(msg.sender, lempiraCoinAmountWithDecimals);
+        require(lem.balanceOf(owner()) >= lempiraCoinAmount, "in this moment contract doesn't have enough LEMP");
+        require(lempiraCoinAmount <= maxLoanAmount, "Amount too large");
+        require(maxPaymentPerMonth >= 1e18, "Max payment must be at least 1 LEMP");
+
+        loans.createLoan(msg.sender, lempiraCoinAmount, maxPaymentPerMonth, hasColateral);
+        lem.transfer(msg.sender, lempiraCoinAmount);
     }
 
     function payLoan(uint256 lempiraCoinAmount) external {
-        uint256 ammountWithDecimals = lempiraCoinAmount * 1e18;
         uint256 balance = lem.balanceOf(msg.sender);        
-        require(ammountWithDecimals <= balance, "No tienes suficiente LEMP");
+        require(lempiraCoinAmount <= balance, "No tienes suficiente LEMP");
         require(!blacklist[msg.sender], "You are banned");
-        lem.transferFrom(msg.sender, address(this), ammountWithDecimals);
-        loans.payLoan(msg.sender, ammountWithDecimals);
-    }
+        lem.transferFrom(msg.sender, address(this), lempiraCoinAmount);
+        loans.payLoan(msg.sender, lempiraCoinAmount);
+    } 
     
     receive() external payable {}
 }
