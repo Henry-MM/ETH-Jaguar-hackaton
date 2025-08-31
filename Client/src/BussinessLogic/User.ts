@@ -3,9 +3,11 @@ export const borrowerUsers = [
       id: 1,
       name: "John Doe",
       email: "john.doe@example.com",
-      riskLevel: { risk: "low", subLevel: 10 },
+      credit_score: 700,
+      lender_score: 0,
+      credit_score: 700,
       isVerified: true,
-      creditScore: 700,
+
       loansStat: {
          taken: 3,
          completed: 3,
@@ -17,9 +19,9 @@ export const borrowerUsers = [
       id: 2,
       name: "Jane Smith",
       email: "jane.smith@example.com",
-      riskLevel: { risk: "medium", subLevel: 2 },
       isVerified: false,
       creditScore: 650,
+      lender_score: 700,
       loansStat: {
          taken: 3,
          completed: 3,
@@ -36,7 +38,7 @@ export const lenderUsers = [
       name: "Alice Johnson",
       email: "alice.johnson@example.com",
       isVerified: true,
-      creditScore: 750,
+      lender_score: 750,
       activeOfferLoans: [
          {
             id: 1,
